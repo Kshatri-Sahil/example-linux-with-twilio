@@ -140,15 +140,15 @@ function startWebServer(model: {
             }
             r.bounding_boxes = bb;
 
-            if (bb.find(x => x.label === 'elephant') && bb.find(x => x.label === 'person')) {
-                console.log('Danger! Seeing both elephant and person!');
+            if (bb.find(x => x.label === 'buffalo') || bb.find(x => x.label === 'cow' || bb.find(x => x.label === 'pig')) {
+                console.log('Danger! Animal detected');
 
                 // if last sent message >30 sec. ago?
                 if (Date.now() > lastSentMessage + 30000) {
                     lastSentMessage = Date.now();
                     try {
                         await twilioClient.messages.create({
-                            body: 'Danger! Both human and elephant seen in close proximity!',
+                            body: 'Danger! Animal detected',
                             to: process.env.TWILIO_TO || '',
                             from: process.env.TWILIO_FROM || ''
                         });
